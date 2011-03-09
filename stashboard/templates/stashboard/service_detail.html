@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content_id %}service_detail{% endblock %}
+{% block content %}
+
+<section class="main">
+
+  <header>
+    <h1>{{ service.name }}</h1>
+    {% with status=service.status %} 
+    <img src="{{ STATIC_URL }}images/status/{{ status.image }}" alt="Status Image" />
+    <strong>{{ status.description|upper }}</strong>
+    {% endwith %}
+  </header>
+
+  {% if announcements %}
+  <h2>Annoucements</h2>
+  <ul class="announcements">
+    {% for a in announcements %}
+    <li>
+      <h3>{{ a.title }}</h3>
+      <p>
+        <time datetime="{{ a.created }}" pubdate>
+          {{ a.created|date:"M-j-Y" }}
+        </time>
+      </p>
+      <p>{{ a.message }}</p>
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  <section class="sidebar">
+
+    <h3>Feeds</h3>
+    <ul>
+      {% for feed in service.feeds %}
+      <li>
+	<a href="{{ feed.url }}">
+	  <img src="{{ STATIC_URL }}images/rss.png" alt="RSS icon"/>
+	  {{ feed.title }}
+	</a>
+      </li>
+      {% endfor %}
+    </ul>
+
+    <h3>Archives</h3>
+    <ul>
+      {% for a in service.archives %}
+      <li>
+	<a href="{{ a.url }}">{{ a.title }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+
+  </section>
+
+  <div class="issues">
+    {% if issues %}
+    <h2>Open Issues</h2>
+    <table id="issues">
+      <tbody>
+        {% for issue in issues %}
+        <tr>
+          <td>{{ issue.opened|date:"M-j-Y" }}</td>
+          <td><a href="/issues/{{issue.pk}}">{{ issue }}</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <h2>Issues</h2>
+    <p>Hooray! No open issues! View old issues in the <a href="#">Archive</a></p>
+    {% endif %}
+  </div>
+
+</section>
+
+
+{% endblock %}
