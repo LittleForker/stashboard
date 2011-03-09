@@ -1,37 +1,49 @@
-# Stashboard
+# STASHBOARD
 
-## About
+## Installation 
 
-Stashboard was written by Twilio to provide status information on our phone, SMS, and Communication APIs. We open sourced the code and to provide a generic status page designed to be customized by any hosted services company to provide customers up-to-date status information. The code can be downloaded, customized with your logo, and run on any Google App Engine account.
+    pip install stashboard
+    
+## Setup
+    
+You'll need to add a few things to your `settings.py` file. Add stashboard to the installed apps
 
-## Installation
+    INSTALLED_APPS = (
+        ....
+        'stashboard',
+    )
 
-First, install the App Engine SDK for Python.
+Next, add the stashobard context processor
 
-Next, download and extract Stashboard to your computer.
+    TEMPLATE_CONTEXT_PROCESSORS = (
+        ....
+        "stashboard.context_processors.settings",
+    )
+    
+And finially some specific settings
 
-### Run Locally
+    SITE_NAME = "<title>"
+    SITE_URL = "http://example.com"
+    SITE_AUTHOR = "Kyle Conroy"
+    PUBSUBHUBBUB_URL = "http://pubsub.example.com"
+    
+Stashboard assumes that it will be at the root of SITE_URL. Lastly, update the `urls.py` to include the stashboard urls
 
-Open the SDK, choose File > Add Existing Application..., select the stashboard folder you downloaded above and choose a port. Press Run and navigate to http://localhost:{port} to see your Stashboard installation.
+    urlpatterns = patterns('',
+        ....
+        (r'^', include('stashboard.urls')),
+    )
+    
+And you're done!
+    
+## Running
 
-### Deploy to AppSpot
+Make sure to run your management commands before getting started
 
-Before you can deploy Stashboard, you will need to create an application on App Engine.
+    ./manage.py syncdb
+    ./manage.py loaddata services issues announcements updates 
 
-Once your application is registered, open app.yaml in the Stashboard directory and change application-id to the name of your newly created application.
+To test it out, run
 
-Hit the 'Deploy' button, wait a couple of seconds, and then naviagate to http://{app-name}.appspot.com to enjoy your new status dashboard
-
-## Basic View
-
-By default, Stashboard exposes a rich client, utilizing AJAX and jQuery. If instead you just want a basic read only view, change the `rich_client` attribute to `False` in `config.py`.
-
-## REST API
-
-Full documentation of the REST API can be found at <http://stashboard.appspot.com/documentation/rest>
-
-## Future
-
-Future plans include RSS feeds, Web Hook integration, and a richer support for different status page views.
-
-
+    ./manage.py runserver
+    
