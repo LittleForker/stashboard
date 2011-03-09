@@ -13,9 +13,7 @@
 
   <header>
     <h1>{{ service.name }}</h1>
-    {% with status=service.status %}
-    <img src="{{ STATIC_URL }}images/icons/{{ status.image }}" alt="Status Image" />
-    {% endwith %}
+    <img src="{{ STATIC_URL }}images/icons/{{ service.status.image }}" alt="Status Image" />
   </header>
 
   <section class="sidebar">
@@ -45,41 +43,40 @@
   <section class="mainpage">
 
     {% if announcements %}
-  <h2>Annoucements</h2>
-  <ul class="announcements">
-    {% for a in announcements %}
-    <li>
-      <h3>{{ a.title }}</h3>
-      <p>
-        <time datetime="{{ a.created }}" pubdate>
-          {{ a.created|date:"M-j-Y" }}
-        </time>
-      </p>
-      <p>{{ a.message }}</p>
-    </li>
-    {% endfor %}
-  </ul>
-  {% endif %}
-
-
-  <div class="issues">
-    {% if issues %}
-    <h2>Open Issues</h2>
-    <table id="issues">
-      <tbody>
-        {% for issue in issues %}
-        <tr>
-          <td>{{ issue.opened|date:"M-j-Y" }}</td>
-          <td><a href="/issues/{{issue.pk}}">{{ issue }}</a></td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    {% else %}
-    <h2>Issues</h2>
-    <p>Hooray! No open issues! View old issues in the <a href="#">Archive</a></p>
+    <h2>Annoucements</h2>
+    <ul class="announcements">
+      {% for a in announcements %}
+      <li>
+        <h3>{{ a.title }}</h3>
+        <p>
+          <time datetime="{{ a.created }}" pubdate>
+            {{ a.created|date:"M-j-Y" }}
+          </time>
+        </p>
+        <p>{{ a.message }}</p>
+      </li>
+      {% endfor %}
+    </ul>
     {% endif %}
-  </div>
+
+    <div class="issues">
+      {% if issues %}
+      <h2> {{ issue_type }}</h2>
+      <table id="issues">
+        <tbody>
+          {% for issue in issues %}
+          <tr>
+            <td>{{ issue.opened|date:"M-j-Y" }}</td>
+            <td><a href="{{service.slug}}/issues/{{issue.pk}}">{{ issue }}</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <h2>Issues</h2>
+      <p>Hooray! No open issues!</p>
+      {% endif %}
+    </div>
 
   </section>
 

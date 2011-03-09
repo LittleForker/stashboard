@@ -7,12 +7,14 @@
   <ul>
     <li><a href="/">Home</a></li>
     <li><a href="/regions/{{ issue.service.region.slug }}">{{ issue.service.region }}</a></li>
-    <li><a href="/services/{{ issue.service.slug }}">{{ issue.service }}</a></li>
-    <li>{{ issue }}</li>
+    <li><a href="/regions/{{ issue.service.region.slug}}/services/{{ issue.service.slug }}">{{ issue.service }}</a></li>
+    <li><a href="/regions/{{ issue.service.region.slug}}/services/{{ issue.service.slug }}/issues">Issues</a></li>
+    <li>#{{issue.pk}}</li>
   </ul>
 </nav>
 
-<h1>{{ issue }}</h1>
+<h1>Issue #{{ issue.pk }}</h1>
+<h2>{{ issue }}</h2>
 
 <table id="issues">
   <tbody>
