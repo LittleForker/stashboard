@@ -68,9 +68,9 @@ footer, #push {
 
 /* Main Site */
 
-h1 { font-size: 1.9em; }
-h2 { font-size: 1.6em; }
-h3 { font-size: 1.3em; }
+h1 { font-size: 2em; }
+h2 { font-size: 1.5em; }
+h3 { font-size: 1.2em; }
 
 wrapper, footer {
     margin-left: auto;
@@ -163,7 +163,7 @@ ul.service_list > li > ul > li{
     content: "";
 }
 
-#service_detail h1 {
+.content h1 {
     font-size: 2.4em;
     margin-bottom: 15px;
 }
@@ -206,15 +206,15 @@ ul.service_list > li > ul > li{
 }
 
 
-#issues tr th {
+.content tr th {
     text-align: left;
 }
 
-#issues td, #issues th {
+.content td, .content th {
     padding: 10px 10px 0 0;
 }
 
-#issue_detail table tr td:first-child {
+.content table tr td:first-child {
     width: 100px;
     text-aligh: left;
 }

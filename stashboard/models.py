@@ -4,7 +4,7 @@ from django.template.defaultfilters import slugify
 
 # Create your models here.
 class Region(models.Model):
-    """ A geographical location 
+    """ A geographical location
 
         Properties:
         location      -- string: The location of this region
@@ -43,16 +43,30 @@ class Service(models.Model):
         description   -- string: The description of this servier
         status        -- Status: The current status of the service
         slug          -- string: The key of this service
-        region        -- Region: The region in which this service is located 
+        region        -- Region: The region in which this service is located
     """
     slug = models.SlugField(unique=True)
     name = models.CharField(max_length=100)
     description = models.TextField()
-    region = models.ForeignKey(Region)
+    region = models.ForeignKey(Region, unique=True)
     status = models.ForeignKey(Status)
 
     def __unicode__(self):
         return unicode(self.name)
+
+    def get_open_issues(self):
+        """ Return the list of all open issues """
+        return self.issue_set.filter(closed=None)
+
+    def get_recent_issues(self, days=7):
+        """ Return a list of recently resolved issues,
+        Default range is one week """
+        return []
+
+    def get_recent_announcements(self, days=7):
+        """ Return a list of recent announcements
+        Default range is one week """
+        return self.announcement_set.order_by("-created")
 
     def feeds(self):
         fs = []
@@ -63,8 +77,8 @@ class Service(models.Model):
 
     def archives(self):
         fs = []
-        for f in ["All Activity", "Announcements", "Issues"]:
-            url = "/archives/services/%s/%s" % (self.slug, slugify(f))
+        for f in ["Announcements", "Issues"]:
+            url = "%s/%s" % (self.slug, slugify(f))
             fs.append({"title": f,"url": url})
         return fs
 

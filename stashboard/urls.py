@@ -9,28 +9,29 @@ Usage in your base urls.py:
 """
 
 from django.conf.urls.defaults import *
-from stashboard.views import IssueDetailView
-from stashboard.views import RegionDetailView
-from stashboard.views import DefaultRegionView
-from stashboard.views import ServiceDetailView
-from stashboard.views import ActivityFeed
-from stashboard.views import AnnouncementFeed
-from stashboard.views import IssueFeed
-from stashboard.views import ServiceActivityFeed
-from stashboard.views import ServiceAnnouncementFeed
-from stashboard.views import ServiceIssueFeed
+from stashboard.views import *
 
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
     (r'^$', DefaultRegionView.as_view()),
-    (r'^issues/(?P<pk>\d+)$', IssueDetailView.as_view()),
-    (r'^services/(?P<slug>[-\w]+)$', ServiceDetailView.as_view()),
+    (r'^regions/(?P<region>[-\w]+)/services/(?P<service>[-\w]+)'
+     '/announcements/(?P<pk>\d+)$', AnnouncementDetailView.as_view()),
+    (r'^regions/(?P<region>[-\w]+)/services/(?P<service>[-\w]+)'
+     '/announcements$', ServiceAnnouncementsView.as_view()),
+    (r'^regions/(?P<region>[-\w]+)/services/(?P<service>[-\w]+)'
+     '/issues/(?P<pk>\d+)$', IssueDetailView.as_view()),
+    (r'^regions/(?P<region>[-\w]+)/services/(?P<service>[-\w]+)/issues$',
+     ServiceIssuesView.as_view()),
+    (r'^regions/(?P<region>[-\w]+)/services/(?P<slug>[-\w]+)$',
+     ServiceDetailView.as_view()),
+    (r'^regions/(?P<slug>[-\w]+)/services$', RegionDetailView.as_view()),
     (r'^regions/(?P<slug>[-\w]+)$', RegionDetailView.as_view()),
-    (r'^feeds/all-activity$', ActivityFeed.as_view()),
+    (r'^feeds/all$', ActivityFeed.as_view()),
     (r'^feeds/issues$', IssueFeed.as_view()),
     (r'^feeds/announcements$', AnnouncementFeed.as_view()),
-    (r'^feeds/services/(?P<slug>[-\w]+)/announcements$', ServiceAnnouncementFeed.as_view()),
-    (r'^feeds/services/(?P<slug>[-\w]+)/issues$', ServiceIssueFeed.as_view()),
-    (r'^feeds/services/(?P<slug>[-\w]+)/all-activity$', ServiceActivityFeed.as_view()),
+    # (r'^feeds/regions//services/(?P<slug>[-\w]+)/announcements$', ServiceAnnouncementFeed.as_view()),
+    # (r'^feeds/regions///(?P<slug>[-\w]+)/issues$', ServiceIssueFeed.as_view()),
+    # (r'^feeds/regions///(?P<slug>[-\w]+)/all-activity$', ServiceActivityFeed.as_view()),
 )
 
 
