@@ -29,6 +29,13 @@ urlpatterns = patterns(
     (r'^feeds/all$', ActivityFeed.as_view()),
     (r'^feeds/issues$', IssueFeed.as_view()),
     (r'^feeds/announcements$', AnnouncementFeed.as_view()),
+
+    # Admin
+    (r'^accounts/login/$', 'django.contrib.auth.views.login',
+     {'template_name': 'stashboard/login.html'}),
+    (r'^admin/services/create$', ServiceFormView.as_view()),
+    (r'^admin/services/(?P<pk>\d+)/edit$', ServiceEditView.as_view()),
+    (r'^admin/services/(?P<pk>\d+)/delete$', ServiceDeleteView.as_view()),
     # (r'^feeds/regions//services/(?P<slug>[-\w]+)/announcements$', ServiceAnnouncementFeed.as_view()),
     # (r'^feeds/regions///(?P<slug>[-\w]+)/issues$', ServiceIssueFeed.as_view()),
     # (r'^feeds/regions///(?P<slug>[-\w]+)/all-activity$', ServiceActivityFeed.as_view()),

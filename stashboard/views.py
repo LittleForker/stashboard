@@ -1,13 +1,13 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
+from django.utils.decorators import method_decorator
 from django.views.generic import DetailView
 from django.views.generic import ListView
-from stashboard.models import Announcement
-from stashboard.models import Issue
-from stashboard.models import Region
-from stashboard.models import Status
-from stashboard.models import Service
-from stashboard.models import Update
-from stashboard.models import LogEntry
+from django.views.generic import CreateView
+from django.views.generic import UpdateView
+from django.views.generic import DeleteView
+from stashboard.models import *
+from stashboard.forms import *
 
 class RegionDetailView(DetailView):
 
@@ -117,21 +117,25 @@ class ServiceDetailView(DetailView):
             context['issues'] = self.object.get_recent_issues()
             context['issue_type'] = "Recently Resolved Issues"
         return context
+
+
 class StatusListView(ListView):
 
     model = Status
     context_object_name = "status_list"
+
 
 class RegionListView(ListView):
 
     model = Region
     context_object_name = "region_list"
 
-class AnnouncementFeed(ListView):
 
+class AnnouncementFeed(ListView):
     context_object_name = "announcement_list"
     template_name = "stashboard/announcement_feed.html"
     queryset = Announcement.objects.order_by("-created")
+
 
 class ServiceAnnouncementFeed(AnnouncementFeed):
 
@@ -139,11 +143,12 @@ class ServiceAnnouncementFeed(AnnouncementFeed):
         service =  get_object_or_404(Service, slug=self.kwargs["slug"])
         return Announcement.objects.filter(service=service).order_by("-created")
 
-class ActivityFeed(ListView):
 
+class ActivityFeed(ListView):
     context_object_name = "log_list"
     template_name = "stashboard/activity_feed.html"
     queryset = LogEntry.objects.order_by("-opened")
+
 
 class ServiceActivityFeed(ListView):
 
@@ -152,7 +157,6 @@ class ServiceActivityFeed(ListView):
         return LogEntry.objects.filter(service=service).order_by("-created")
 
 class IssueFeed(ListView):
-
     context_object_name = "issue_list"
     template_name = "stashboard/issue_feed.html"
     queryset = Issue.objects.order_by("-opened")
@@ -163,3 +167,19 @@ class ServiceIssueFeed(IssueFeed):
         service =  get_object_or_404(Service, slug=self.kwargs["slug"])
         return Issue.objects.filter(service=service).order_by("-opened")
 
+
+class ProtectionMixin(object):
+
+    @method_decorator(login_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ProtectionMixin, self).dispatch(*args, **kwargs)
+
+
+class ServiceFormView(ProtectionMixin, CreateView):
+    model = Service
+
+class ServiceEditView(ProtectionMixin, UpdateView):
+    model = Service
+
+class ServiceDeleteView(ProtectionMixin, DeleteView):
+    model = Service
