@@ -178,8 +178,11 @@ class ProtectionMixin(object):
 class ServiceFormView(ProtectionMixin, CreateView):
     model = Service
 
+
 class ServiceEditView(ProtectionMixin, UpdateView):
+    success_url = "/admin/services/%(id)s"
     model = Service
+
 
 class ServiceDeleteView(ProtectionMixin, DeleteView):
     model = Service

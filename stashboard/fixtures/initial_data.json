@@ -3,7 +3,7 @@
         "model": "stashboard.region",
         "pk": 1,
         "fields": {
-            "slug": "us", 
+            "slug": "us",
             "name": "United States",
             "location": "North America"
         }
@@ -12,20 +12,20 @@
         "model": "stashboard.status",
         "pk": 1,
         "fields": {
-            "slug": "up", 
+            "slug": "up",
             "name": "Up",
             "description": "Up and running",
-            "image": "up.png"
+            "image": "iconic/up.png"
         }
     },
     {
         "model": "stashboard.status",
         "pk": 2,
         "fields": {
-            "slug": "down", 
+            "slug": "down",
             "name": "Down",
             "description": "Down",
-            "image": "down.png"
+            "image": "iconic/down.png"
         }
     },
     {
@@ -35,7 +35,7 @@
             "slug": "intermittent",
             "name": "Intermittent",
             "description": "Intermittent problems",
-            "image": "intermittent.png"
+            "image": "iconic/intermittent.png"
         }
     },
     {
@@ -45,7 +45,7 @@
             "slug": "maintenance",
             "name": "Maintenance",
             "description": "Scheduled maintenance",
-            "image": "maintenance.png"
+            "image": "iconic/maintenance.png"
         }
     }
 ]

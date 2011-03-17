@@ -45,11 +45,14 @@ class Service(models.Model):
         slug          -- string: The key of this service
         region        -- Region: The region in which this service is located
     """
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField()
     name = models.CharField(max_length=100)
     description = models.TextField()
-    region = models.ForeignKey(Region, unique=True)
+    region = models.ForeignKey(Region)
     status = models.ForeignKey(Status)
+
+    class Meta:
+        unique_together = ("slug", "region")
 
     def __unicode__(self):
         return unicode(self.name)

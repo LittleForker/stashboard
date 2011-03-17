@@ -219,6 +219,20 @@ ul.service_list > li > ul > li{
     text-aligh: left;
 }
 
+form.admin p label{
+  display: inline-block;
+  vertical-align: top;
+  width: 100px;
+  text-align: right;
+}
+
+.errorlist {
+  background: #ffb9c2;
+  border: 1px solid #ff2f3e;
+  margin-bottom: 10px;
+  padding: 4px;
+}
+
 footer { width: 600px; font-size: .8em; clear:both}
 footer nav ul.left{ float: left }
 footer nav ul.right{ float: right }
