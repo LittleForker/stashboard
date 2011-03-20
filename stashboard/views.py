@@ -176,18 +176,19 @@ class ProtectionMixin(object):
 
 
 # Admin Views
-class ServiceFormView(ProtectionMixin, CreateView):
-    success_url = "/admin/services/%(id)s"
+class ServiceCreateView(ProtectionMixin, CreateView):
+    template_name = "stashboard/model_form.html"
     model = Service
 
 
 class ServiceEditView(ProtectionMixin, UpdateView):
-    success_url = "/admin/services/%(id)s"
+    template_name = "stashboard/model_form.html"
     model = Service
 
 
 class ServiceDeleteView(ProtectionMixin, DeleteView):
-    success_url = "/admin/services/%(id)s"
+    template_name = "stashboard/model_delete.html"
+    context_object_name = "model"
     model = Service
 
 class ModelManageView(ProtectionMixin, ListView):

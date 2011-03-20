@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content_id %}delete_model{% endblock %}
+{% block content %}
+
+<p>Are you sure you want to delete {{ model }}?</p>
+
+<form class="admin" method="post">{% csrf_token %}
+<input type="submit" value="Delete" />
+</form>
+
+<a href="{{ model.get_absolute_url }}">Cancel</a>
+
+{% endblock %}

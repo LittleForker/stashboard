@@ -71,6 +71,25 @@ class Service(models.Model):
         Default range is one week """
         return self.announcement_set.order_by("-created")
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('service-detail', (), {'slug': self.slug,
+                                       'region': self.region.slug })
+
+    @models.permalink
+    def get_edit_url(self):
+        """
+        Return the edit url for this service
+        """
+        return ('edit-service', (), {'pk': self.id})
+
+    @models.permalink
+    def get_delete_url(self):
+        """
+        Return the edit url for this service
+        """
+        return ('delete-service', (), {'pk': self.id})
+
     def feeds(self):
         fs = []
         for f in ["All Activity", "Announcements", "Issues"]:

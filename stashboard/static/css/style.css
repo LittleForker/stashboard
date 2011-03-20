@@ -233,6 +233,14 @@ form.admin p label{
   padding: 4px;
 }
 
+.issues {
+  margin-bottom: 20px;
+}
+
+#delete_model form {
+  float: right;
+}
+
 footer { width: 600px; font-size: .8em; clear:both}
 footer nav ul.left{ float: left }
 footer nav ul.right{ float: right }
