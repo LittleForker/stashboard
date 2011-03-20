@@ -44,15 +44,89 @@ q:before, q:after {
 	content: '';
 	content: none;
 }
+
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
 
 
+/* button
+---------------------------------------------- */
+.button {
+	display: inline-block;
+	zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */
+	*display: inline;
+	vertical-align: baseline;
+	margin: 0 2px;
+	outline: none;
+	cursor: pointer;
+	text-align: center;
+	text-decoration: none;
+	font: 14px/100% Arial, Helvetica, sans-serif;
+	padding: .5em 2em .55em;
+	text-shadow: 0 1px 1px rgba(0,0,0,.3);
+	-webkit-border-radius: .5em;
+	-moz-border-radius: .5em;
+	border-radius: .5em;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	box-shadow: 0 1px 2px rgba(0,0,0,.2);
+}
+.button:hover {
+	text-decoration: none;
+}
+.button:active {
+	position: relative;
+	top: 1px;
+}
+
+.bigrounded {
+	-webkit-border-radius: 2em;
+	-moz-border-radius: 2em;
+	border-radius: 2em;
+}
+.medium {
+	font-size: 12px;
+	padding: .4em 1.5em .42em;
+}
+.small {
+	font-size: 11px;
+	padding: .2em 1em .275em;
+}
+
+/* color styles
+---------------------------------------------- */
+/* white */
+
+.white {
+	color: #606060;
+	border: solid 1px #b7b7b7;
+	background: #fff;
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#ededed));
+	background: -moz-linear-gradient(top,  #fff,  #ededed);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#ededed');
+}
+.white:hover {
+	background: #ededed;
+	background: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#dcdcdc));
+	background: -moz-linear-gradient(top,  #fff,  #dcdcdc);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#dcdcdc');
+}
+.white:active {
+	color: #999;
+	background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#fff));
+	background: -moz-linear-gradient(top,  #ededed,  #fff);
+	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#ffffff');
+}
+
 /* Sticky Footer */
 html, body {
     height: 100%;
+}
+
+a {
+    color: #333;
 }
 
 #wrapper {
@@ -116,6 +190,7 @@ h2, h3, p { margin-bottom: 10px;}
 .content {
     border: 1px solid #E4E4E4;
     background: white;
+    margin-bottom: 20px;
 }
 
 ul.service_list > li {
@@ -170,14 +245,14 @@ ul.service_list > li > ul > li{
 
 #report {
     position: absolute;
-    top: 20px;
+    top: 29px;
     right: 0px;
     display: block;
-    padding: 15px;
+    padding: 10px;
 }
 
 #breadcrumb {
-    margin-bottom: 20px;
+    margin: 10px;
 }
 
 #breadcrumb ul li {
@@ -190,6 +265,16 @@ ul.service_list > li > ul > li{
 
 #breadcrumb ul li:last-child:after {
     content: "";
+}
+
+#breadcrumb ul li a{
+    color: #666;
+    text-decoration: none;
+}
+
+#breadcrumb ul li a:hover{
+    color: #999;
+    text-decoration: underline;
 }
 
 .content h1 {
