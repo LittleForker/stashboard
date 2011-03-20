@@ -71,6 +71,11 @@ class Service(models.Model):
         Default range is one week """
         return self.announcement_set.order_by("-created")
 
+    @models.permalink
+    def get_absolute_url(self):
+        return ('service-detail', (), {'slug': self.slug,
+                                       'region': self.region.slug })
+
     def feeds(self):
         fs = []
         for f in ["All Activity", "Announcements", "Issues"]:
@@ -94,7 +99,6 @@ class Announcement(models.Model):
         created -- datetime: The date and time this annoucement was created
         service -- Service: The service this annoucement is for
     """
-    slug = models.SlugField(unique=True)
     title = models.CharField(max_length=100)
     message = models.TextField()
     created = models.DateTimeField(auto_now_add=True)

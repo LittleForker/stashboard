@@ -166,39 +166,3 @@ class ServiceIssueFeed(IssueFeed):
     def get_queryset(self):
         service =  get_object_or_404(Service, slug=self.kwargs["slug"])
         return Issue.objects.filter(service=service).order_by("-opened")
-
-
-class ProtectionMixin(object):
-
-    @method_decorator(login_required)
-    def dispatch(self, *args, **kwargs):
-        return super(ProtectionMixin, self).dispatch(*args, **kwargs)
-
-
-# Admin Views
-class ServiceFormView(ProtectionMixin, CreateView):
-    success_url = "/admin/services/%(id)s"
-    model = Service
-
-
-class ServiceEditView(ProtectionMixin, UpdateView):
-    success_url = "/admin/services/%(id)s"
-    model = Service
-
-
-class ServiceDeleteView(ProtectionMixin, DeleteView):
-    success_url = "/admin/services/%(id)s"
-    model = Service
-
-class ModelManageView(ProtectionMixin, ListView):
-    template_name = "stashboard/admin_model_list.html"
-    context_object_name = "models"
-
-    def get_context_data(self, **kwargs):
-        context = super(ModelManageView, self).get_context_data(**kwargs)
-        context['resource'] = self.resource
-        return context
-
-class ServiceManageView(ModelManageView):
-    resource = "services"
-    model = Service
