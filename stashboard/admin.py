@@ -7,17 +7,6 @@ class UpdateInline(admin.TabularInline):
     readonly_fields = ["created"]
 
 
-class IssueInline(admin.TabularInline):
-    model = Issue
-    extra = 1
-    exclude = ["closed", "resolution"]
-
-
-class AnnouncementInline(admin.TabularInline):
-    model = Announcement
-    extra = 1
-
-
 class ServiceAdmin(admin.ModelAdmin):
     list_display = ['name', 'description', 'region', 'status']
     prepopulated_fields = {"slug": ("name",)}
