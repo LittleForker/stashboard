@@ -3,26 +3,10 @@
 {% block content_id %}region{% endblock %}
 {% block content %}
 
-<nav id="breadcrumb">
-  <ul>
-    <li><a href="/">Home</a></li>
-    <li>{{ region }}</li>
-  </ul>
-</nav>
+<header>
+  <h1>{{ region }}</h1>
+</header>
 
-<ul class="service_list">
-  {% for service in services %}
-
-    <li>
-      <img src="{{ STATIC_URL }}images/icons/{{ service.status.image }}" alt="Status Image" />
-      <a href="/regions/{{region.slug}}/services/{{service.slug}}">{{ service.name }}</a>
-      <ul>
-	<li><a href="#">1 ANNOUCEMENT</a></li>
-	<li><a href="#">1 ISSUE</a></li>
-      </ul>
-    </li>
-
-  {% endfor %}
-</ul>
+{% include "stashboard/region_services.html" %}
 
 {% endblock %}

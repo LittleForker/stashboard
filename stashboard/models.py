@@ -1,3 +1,4 @@
+from datetime import datetime, timedelta
 from django.conf import settings
 from django.db import models
 from django.template.defaultfilters import slugify
@@ -64,12 +65,14 @@ class Service(models.Model):
     def get_recent_issues(self, days=7):
         """ Return a list of recently resolved issues,
         Default range is one week """
-        return []
+        week_ago = datetime.now() - timedelta(days=days)
+        return self.issue_set.filter(opened__gt=week_ago)
 
     def get_recent_announcements(self, days=7):
         """ Return a list of recent announcements
         Default range is one week """
-        return self.announcement_set.order_by("-created")
+        week_ago = datetime.now() - timedelta(days=days)
+        return self.announcement_set.filter(created__gt=week_ago)
 
     @models.permalink
     def get_absolute_url(self):
