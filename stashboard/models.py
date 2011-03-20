@@ -76,20 +76,6 @@ class Service(models.Model):
         return ('service-detail', (), {'slug': self.slug,
                                        'region': self.region.slug })
 
-    @models.permalink
-    def get_edit_url(self):
-        """
-        Return the edit url for this service
-        """
-        return ('edit-service', (), {'pk': self.id})
-
-    @models.permalink
-    def get_delete_url(self):
-        """
-        Return the edit url for this service
-        """
-        return ('delete-service', (), {'pk': self.id})
-
     def feeds(self):
         fs = []
         for f in ["All Activity", "Announcements", "Issues"]:
@@ -113,7 +99,6 @@ class Announcement(models.Model):
         created -- datetime: The date and time this annoucement was created
         service -- Service: The service this annoucement is for
     """
-    slug = models.SlugField(unique=True)
     title = models.CharField(max_length=100)
     message = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
