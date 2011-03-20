@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content_id %}issue_detail{% endblock %}
+{% block content %}
+
+<nav id="breadcrumb">
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/regions/{{ service.region.slug }}">{{ service.region }}</a></li>
+    <li><a href="/regions/{{ service.region.slug}}/services/{{ service.slug }}">{{ service }}</a></li>
+    <li>Issues</li>
+  </ul>
+</nav>
+
+<h1>{{ service }} Issues</h1>
+
+  {% if issues %}
+  <table>
+    {% for i in issues %}
+    <tr>
+      <td>
+        <time datetime="{{ i.opened }}" pubdate>
+          {{ i.opened|date:"M-j-Y" }}
+        </time>
+      </td>
+      <td><a href="issues/{{i.pk}}">{{ i }}</a></td>
+    </tr>
+    {% endfor %}
+  </table>
+  {% endif %}
+
+{% endblock %}

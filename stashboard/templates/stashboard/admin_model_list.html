@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content_id %}admin_list{% endblock %}
+{% block content %}
+
+<ul>
+  {% for model in models %}
+  <li>
+    <a href="/admin/{{ resource }}/{{ model.id }}">{{ model }}</a>
+    <a href="/admin/{{ resource }}/{{ model.id }}/edit">Edit</a>
+    <a href="/admin/{{ resource }}/{{ model.id }}/delete">Delete</a>
+  </li>
+  {% endfor %}
+</ul>
+
+{% endblock %}

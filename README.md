@@ -1,37 +1,53 @@
-# Stashboard
-
-## About
-
-Stashboard was written by Twilio to provide status information on our phone, SMS, and Communication APIs. We open sourced the code and to provide a generic status page designed to be customized by any hosted services company to provide customers up-to-date status information. The code can be downloaded, customized with your logo, and run on any Google App Engine account.
+# STASHBOARD
 
 ## Installation
 
-First, install the App Engine SDK for Python.
+    pip install stashboard
 
-Next, download and extract Stashboard to your computer.
+## Setup
 
-### Run Locally
+You'll need to add a few things to your `settings.py` file. Add stashboard to the installed apps
 
-Open the SDK, choose File > Add Existing Application..., select the stashboard folder you downloaded above and choose a port. Press Run and navigate to http://localhost:{port} to see your Stashboard installation.
+    INSTALLED_APPS = (
+        ....
+        'stashboard',
+    )
 
-### Deploy to AppSpot
+Next, add the stashobard context processor
 
-Before you can deploy Stashboard, you will need to create an application on App Engine.
+    TEMPLATE_CONTEXT_PROCESSORS = (
+        ....
+        "stashboard.context_processors.settings",
+    )
 
-Once your application is registered, open app.yaml in the Stashboard directory and change application-id to the name of your newly created application.
+And finially some specific settings
 
-Hit the 'Deploy' button, wait a couple of seconds, and then naviagate to http://{app-name}.appspot.com to enjoy your new status dashboard
+    SITE_NAME = "<title>"
+    SITE_URL = "http://example.com"
+    SITE_AUTHOR = "Kyle Conroy"
+    PUBSUBHUBBUB_URL = "http://pubsub.example.com"
 
-## Basic View
+Stashboard assumes that it will be at the root of SITE_URL. Lastly, update the `urls.py` to include the stashboard urls
 
-By default, Stashboard exposes a rich client, utilizing AJAX and jQuery. If instead you just want a basic read only view, change the `rich_client` attribute to `False` in `config.py`.
+    urlpatterns = patterns('',
+        ....
+        (r'^', include('stashboard.urls')),
+    )
 
-## REST API
+And you're done!
 
-Full documentation of the REST API can be found at <http://stashboard.appspot.com/documentation/rest>
+## Running
 
-## Future
+Make sure to run your management commands before getting started
 
-Future plans include RSS feeds, Web Hook integration, and a richer support for different status page views.
+    ./manage.py syncdb
+    ./manage.py loaddata services issues announcements updates
 
+To test it out, run
+
+    ./manage.py runserver
+
+## Attribution
+* Fugue icons from [Yusuke Kamiyamane](http://p.yusukekamiyamane.com/)
+* Iconic icons from [P.J. Onori](http://somerandomdude.com/projects/iconic/)
 

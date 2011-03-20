@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content_id %}announcement_list{% endblock %}
+{% block content %}
+
+<nav id="breadcrumb">
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="/regions/{{ service.region.slug }}">{{ service.region }}</a></li>
+    <li><a href="/regions/{{ service.region.slug}}/services/{{ service.slug }}">{{ service }}</a></li>
+    <li>Announcements</li>
+  </ul>
+</nav>
+
+<h1>{{ service }} Announcements</h1>
+
+  <table>
+    {% for a in announcement_list %}
+    <tr>
+      <td>
+        <time datetime="{{ a.opened }}" pubdate>
+          {{ a.created|date:"M-j-Y" }}
+        </time>
+      </td>
+      <td><a href="announcements/{{a.pk}}">{{ a }}</a></td>
+    </tr>
+    {% endfor %}
+  </table>
+
+{% endblock %}
