@@ -10,6 +10,7 @@ Usage in your base urls.py:
 
 from django.conf.urls.defaults import *
 from stashboard.views import *
+from stashboard.models import *
 
 urlpatterns = patterns(
     '',
@@ -36,6 +37,7 @@ urlpatterns = patterns(
     (r'^admin/services/create$', ServiceFormView.as_view()),
     (r'^admin/services/(?P<pk>\d+)/edit$', ServiceEditView.as_view()),
     (r'^admin/services/(?P<pk>\d+)/delete$', ServiceDeleteView.as_view()),
+    (r'^admin/services$', ServiceManageView.as_view()),
     # (r'^feeds/regions//services/(?P<slug>[-\w]+)/announcements$', ServiceAnnouncementFeed.as_view()),
     # (r'^feeds/regions///(?P<slug>[-\w]+)/issues$', ServiceIssueFeed.as_view()),
     # (r'^feeds/regions///(?P<slug>[-\w]+)/all-activity$', ServiceActivityFeed.as_view()),

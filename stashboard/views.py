@@ -175,7 +175,9 @@ class ProtectionMixin(object):
         return super(ProtectionMixin, self).dispatch(*args, **kwargs)
 
 
+# Admin Views
 class ServiceFormView(ProtectionMixin, CreateView):
+    success_url = "/admin/services/%(id)s"
     model = Service
 
 
@@ -185,4 +187,18 @@ class ServiceEditView(ProtectionMixin, UpdateView):
 
 
 class ServiceDeleteView(ProtectionMixin, DeleteView):
+    success_url = "/admin/services/%(id)s"
+    model = Service
+
+class ModelManageView(ProtectionMixin, ListView):
+    template_name = "stashboard/admin_model_list.html"
+    context_object_name = "models"
+
+    def get_context_data(self, **kwargs):
+        context = super(ModelManageView, self).get_context_data(**kwargs)
+        context['resource'] = self.resource
+        return context
+
+class ServiceManageView(ModelManageView):
+    resource = "services"
     model = Service
