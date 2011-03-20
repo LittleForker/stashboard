@@ -10,19 +10,6 @@
   </ul>
 </nav>
 
-<ul class="service_list">
-  {% for service in services %}
-
-    <li>
-      <img src="{{ STATIC_URL }}images/icons/{{ service.status.image }}" alt="Status Image" />
-      <a href="/regions/{{region.slug}}/services/{{service.slug}}">{{ service.name }}</a>
-      <ul>
-	<li><a href="#">1 ANNOUCEMENT</a></li>
-	<li><a href="#">1 ISSUE</a></li>
-      </ul>
-    </li>
-
-  {% endfor %}
-</ul>
+{% include "stashboard/region_services.html" %}
 
 {% endblock %}

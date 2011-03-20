@@ -13,7 +13,6 @@
         "pk": 2,
         "model": "stashboard.announcement",
         "fields": {
-            "created": "2011-02-08 00:10:03",
             "message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eros sem, euismod sed vulputate ac, consectetur non tellus. Curabitur porttitor magna ac lorem bibendum hendrerit. Sed vitae leo ac ligula suscipit tristique. Cras eget nunc at lacus euismod accumsan. Nunc et arcu vel sem commodo semper nec quis lacus. Proin consectetur, nulla sed pellentesque volutpat, ante augue tincidunt ipsum, in viverra",
             "title": "Dragon Warning",
             "service": 2
@@ -23,7 +22,6 @@
         "pk": 3,
         "model": "stashboard.announcement",
         "fields": {
-            "created": "2011-02-09 00:55:03",
             "message": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eros sem, euismod sed vulputate ac, consectetur non tellus. Curabitur porttitor magna ac lorem bibendum hendrerit. Sed vitae leo ac ligula suscipit tristique. Cras eget nunc at lacus euismod accumsan. Nunc et arcu vel sem commodo semper nec quis lacus. Proin consectetur, nulla sed pellentesque volutpat, ante augue tincidunt ipsum, in viverra",
             "title": "Elf Invasion",
             "service": 2

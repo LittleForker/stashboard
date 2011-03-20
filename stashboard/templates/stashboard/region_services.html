@@ -1,0 +1,49 @@
+{% load url from future %}
+
+<ul class="service_list">
+  {% with rslug=region.slug %}
+  {% for service in services %}
+
+    <li>
+      <img src="{{ STATIC_URL }}images/icons/{{ service.status.image }}" alt="Status Image" />
+      <a href="/regions/{{rslug}}/services/{{service.slug}}">{{ service.name }}</a>
+      <ul>
+
+        {% with service.get_recent_announcements as announs %}
+        {% if announs %}
+	    <li>
+          <a href="{% url 'service-announcements' region=rslug service=service.slug%}">
+            {{ announs|length }}
+            ANNOUCEMENT
+            {{ announs|length|pluralize|upper }}</a>
+        </li>
+        {% endif %}
+        {% endwith %}
+
+        {% with service.get_open_issues as issues %}
+        {% if issues %}
+	    <li>
+          <a href="{% url 'service-issues' region=rslug service=service.slug%}">
+            {{ issues|length }}
+            OPEN ISSUE
+            {{ issues|length|pluralize|upper }}</a>
+        </li>
+        {% else %}
+          {% with service.get_recent_issues as issues %}
+          {% if issues %}
+ 	    <li>
+          <a href="{% url 'service-issues' region=rslug service=service.slug%}">
+            {{ issues|length }}
+            RECENT ISSUE
+            {{ issues|length|pluralize|upper }}</a>
+        </li>
+          {% endif %}
+          {% endwith %}
+        {% endif %}
+        {% endwith %}
+      </ul>
+    </li>
+
+  {% endfor %}
+  {% endwith %}
+</ul>

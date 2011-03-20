@@ -30,7 +30,8 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
-        font-family: "Helvetica Neue", Arial, sans-sarif;
+    font-family: "Helvetica Neue", Arial, sans-sarif;
+    background: #f7f7f7;
 }
 ol, ul {
 	list-style: none;
@@ -91,6 +92,12 @@ wrapper, footer {
     top: 20px;
     left: 75px;
     padding: 10px;
+    font-weight: bold;
+}
+
+#wrapper > header h1 a {
+    text-decoration: none;
+    color: #333;
 }
 
 #wrapper > header img {
@@ -106,24 +113,38 @@ h2, h3, p { margin-bottom: 10px;}
     width: 600px;
 }
 
+.content {
+    border: 1px solid #E4E4E4;
+    background: white;
+}
+
 ul.service_list > li {
     position: relative;
     display: block;
     min-height: 40px;
-    background: grey;
-    margin: 0 0 20px 0;
+    margin: 10px;
+    background: #daf1b8;
 }
 
 ul.service_list > li > img{
     position: absolute;
     top: 50%;
-    left: 0px;
-    margin-top: -20px;
+    left: 5px;
+    margin-top: -16px;
 }
 
 ul.service_list > li > a{
+    position: absolute;
+    top: 8px;
+    left: 50px;
     font-size: 1.2em;
-    margin-left: 50px;
+    color: #333;
+    text-decoration: none;
+}
+
+ul.service_list > li > a:hover{
+    color: #666;
+    text-decoration: underline;
 }
 
 ul.service_list > li > ul{
@@ -136,6 +157,14 @@ ul.service_list > li > ul{
 ul.service_list > li > ul > li{
     float: left;
     margin-right: 10px;
+}
+
+ul.service_list > li > ul > li > a{
+    color: #333;
+}
+
+ul.service_list > li > ul > li{
+    color: #666;
 }
 
 
@@ -239,6 +268,20 @@ form.admin p label{
 
 #delete_model form {
   float: right;
+}
+
+#powered {
+  font-family: courier, monospace;
+  font-size: 10px;
+}
+
+#powered a {
+  color: #333;
+  text-decoration: none;
+}
+
+#powered a:hover {
+  color: #666;
 }
 
 footer { width: 600px; font-size: .8em; clear:both}
