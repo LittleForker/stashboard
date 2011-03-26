@@ -9,18 +9,21 @@ from django.views.generic import DeleteView
 from stashboard.models import *
 from stashboard.forms import *
 
-class RegionDetailView(DetailView):
+class RegionDetail(DetailView):
 
     context_object_name = "region"
     model = Region
 
+    def get_object(self):
+        return get_object_or_404(Region, slug=self.kwargs["region"])
+
     def get_context_data(self, **kwargs):
-        context = super(RegionDetailView, self).get_context_data(**kwargs)
+        context = super(RegionDetail, self).get_context_data(**kwargs)
         context['services'] = Service.objects.filter(region=self.object)
         context['statuses'] = Status.objects.all()
         return context
 
-class DefaultRegionView(RegionDetailView):
+class DefaultRegion(RegionDetail):
 
     template_name = "stashboard/index.html"
 
@@ -28,11 +31,11 @@ class DefaultRegionView(RegionDetailView):
         return Region.objects.all()[0]
 
     def get_context_data(self, **kwargs):
-        context = super(DefaultRegionView, self).get_context_data(**kwargs)
+        context = super(DefaultRegion, self).get_context_data(**kwargs)
         context['regions'] = Region.objects.all()
         return context
 
-class IssueDetailView(DetailView):
+class IssueDetail(DetailView):
 
     context_object_name = "issue"
     model = Issue
@@ -46,12 +49,12 @@ class IssueDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
-        context = super(IssueDetailView, self).get_context_data(**kwargs)
+        context = super(IssueDetail, self).get_context_data(**kwargs)
         # Get the object we're querying
         context['updates'] = Update.objects.filter(issue=self.object)
         return context
 
-class ServiceIssuesView(ListView):
+class ServiceIssues(ListView):
 
     model = Issue
     context_object_name = "issues"
@@ -64,11 +67,11 @@ class ServiceIssuesView(ListView):
 
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
-        context = super(ServiceIssuesView, self).get_context_data(**kwargs)
+        context = super(ServiceIssues, self).get_context_data(**kwargs)
         context['service'] = self.service
         return context
 
-class AnnouncementDetailView(DetailView):
+class AnnouncementDetail(DetailView):
 
     model = Announcement
 
@@ -80,7 +83,7 @@ class AnnouncementDetailView(DetailView):
                                  pk=self.kwargs["pk"])
 
 
-class ServiceAnnouncementsView(ListView):
+class ServiceAnnouncements(ListView):
 
     model = Announcement
 
@@ -91,12 +94,12 @@ class ServiceAnnouncementsView(ListView):
         return Announcement.objects.filter(service=self.service).order_by("-created")
 
     def get_context_data(self, **kwargs):
-        context = super(ServiceAnnouncementsView, self).get_context_data(**kwargs)
+        context = super(ServiceAnnouncements, self).get_context_data(**kwargs)
         context['service'] = self.service
         return context
 
 
-class ServiceDetailView(DetailView):
+class ServiceDetail(DetailView):
 
     context_object_name = "service"
     model = Service
@@ -104,10 +107,10 @@ class ServiceDetailView(DetailView):
     def get_object(self):
         region = get_object_or_404(Region, slug=self.kwargs["region"])
         return get_object_or_404(Service, region=region,
-                                 slug=self.kwargs["slug"])
+                                 slug=self.kwargs["service"])
 
     def get_context_data(self, **kwargs):
-        context = super(ServiceDetailView, self).get_context_data(**kwargs)
+        context = super(ServiceDetail, self).get_context_data(**kwargs)
         context['announcements'] = self.object.get_recent_announcements()
         issues = self.object.get_open_issues()
         if issues:
@@ -119,13 +122,13 @@ class ServiceDetailView(DetailView):
         return context
 
 
-class StatusListView(ListView):
+class StatusList(ListView):
 
     model = Status
     context_object_name = "status_list"
 
 
-class RegionListView(ListView):
+class RegionList(ListView):
 
     model = Region
     context_object_name = "region_list"
@@ -140,7 +143,9 @@ class AnnouncementFeed(ListView):
 class ServiceAnnouncementFeed(AnnouncementFeed):
 
     def get_queryset(self):
-        service =  get_object_or_404(Service, slug=self.kwargs["slug"])
+        region = get_object_or_404(Region, slug=self.kwargs["region"])
+        service =  get_object_or_404(Service, region=region,
+                                     slug=self.kwargs["service"])
         return Announcement.objects.filter(service=service).order_by("-created")
 
 
@@ -153,7 +158,9 @@ class ActivityFeed(ListView):
 class ServiceActivityFeed(ListView):
 
     def get_queryset(self):
-        service =  get_object_or_404(Service, slug=self.kwargs["slug"])
+        region = get_object_or_404(Region, slug=self.kwargs["region"])
+        service =  get_object_or_404(Service, region=region,
+                                     slug=self.kwargs["service"])
         return LogEntry.objects.filter(service=service).order_by("-created")
 
 class IssueFeed(ListView):
@@ -164,5 +171,7 @@ class IssueFeed(ListView):
 class ServiceIssueFeed(IssueFeed):
 
     def get_queryset(self):
-        service =  get_object_or_404(Service, slug=self.kwargs["slug"])
+        region = get_object_or_404(Region, slug=self.kwargs["region"])
+        service =  get_object_or_404(Service, region=region,
+                                     slug=self.kwargs["service"])
         return Issue.objects.filter(service=service).order_by("-opened")

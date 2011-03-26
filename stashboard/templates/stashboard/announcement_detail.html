@@ -3,12 +3,9 @@
 {% block content_id %}announment_detail{% endblock %}
 {% block content %}
 
+
 <nav id="breadcrumb">
   <ul>
-    <li><a href="/">Home</a></li>
-    <li>
-      <a href="/regions/{{ announcement.service.region.slug }}">
-        {{ announcement.service.region }}</a></li>
     <li><a href="/regions/{{ announcement.service.region.slug}}/services/{{ announcement.service.slug }}">
         {{ announcement.service }}</a></li>
     <li><a href="/regions/{{ announcement.service.region.slug}}/services/{{ announcement.service.slug }}/announcements">
@@ -17,13 +14,17 @@
   </ul>
 </nav>
 
-<h1>{{ announcement }}</h1>
+<div class="archive">
 
-<p>
-  <time datetime="{{ announcement.created }}" pubdate>
-    {{ announcement.created|date:"M-j-Y" }}
-  </time>
-</p>
-<p>{{ announcement.message }}</p>
+  <h1>{{ announcement }}</h1>
+
+  <p>
+    <time datetime="{{ announcement.created }}" pubdate>
+      {{ announcement.created|date:"M-j-Y" }}
+    </time>
+  </p>
+  <p>{{ announcement.message }}</p>
+
+</div>
 
 {% endblock %}

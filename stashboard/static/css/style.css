@@ -120,6 +120,13 @@ table {
 	filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#ffffff');
 }
 
+/* Status Colors */
+.green_highlight { background: #daf1b8; }
+.red_highlight { background: #f1bcb7; }
+.orange_highlight { background: #fce1b5; }
+.blue_highlight { background: #a2caf0; }
+.black_highlight { background: #cbcbcb; }
+
 /* Sticky Footer */
 html, body {
     height: 100%;
@@ -193,12 +200,17 @@ h2, h3, p { margin-bottom: 10px;}
     margin-bottom: 20px;
 }
 
+.content h1 {
+    font-size: 2.4em;
+    margin-bottom: 15px;
+}
+
+
 ul.service_list > li {
     position: relative;
     display: block;
     min-height: 40px;
     margin: 10px;
-    background: #daf1b8;
 }
 
 ul.service_list > li > img{
@@ -219,7 +231,6 @@ ul.service_list > li > a{
 
 ul.service_list > li > a:hover{
     color: #666;
-    text-decoration: underline;
 }
 
 ul.service_list > li > ul{
@@ -235,7 +246,12 @@ ul.service_list > li > ul > li{
 }
 
 ul.service_list > li > ul > li > a{
-    color: #333;
+    color: #555;
+    text-decoration: none;
+}
+
+ul.service_list > li > ul > li > a:hover{
+    color: #000;
 }
 
 ul.service_list > li > ul > li{
@@ -253,6 +269,7 @@ ul.service_list > li > ul > li{
 
 #breadcrumb {
     margin: 10px;
+    font-size: 11px;
 }
 
 #breadcrumb ul li {
@@ -260,7 +277,7 @@ ul.service_list > li > ul > li{
 }
 
 #breadcrumb ul li:after {
-    content: " >";
+    content: " /";
 }
 
 #breadcrumb ul li:last-child:after {
@@ -277,13 +294,10 @@ ul.service_list > li > ul > li{
     text-decoration: underline;
 }
 
-.content h1 {
-    font-size: 2.4em;
-    margin-bottom: 15px;
-}
 
 #service_detail section.sidebar {
     float: right;
+    margin-top: 10px;
     width: 150px;
 }
 
@@ -297,22 +311,32 @@ ul.service_list > li > ul > li{
 }
 
 #service_detail section.mainpage {
-    margin-right: 170px;
+    margin: 10px 170px 10px 10px;
+    min-height: 170px;
+}
+
+#service_detail section.mainpage h2{
+    font-weight: bold;
+}
+
+.archive {
+    padding: 10px;
 }
 
 #service_detail header {
     position: relative;
+    padding: 10px;
 }
 
 #service_detail header img {
     position: absolute;
-    top: 4px;
-    left: 0px;
+    top: 22px;
+    left: 13px;
     width: 32px;
 }
 
 #service_detail header h1 {
-    margin-left: 45px;
+    margin: 10px 0 10px 45px;
 }
 
 #service_detail p time {

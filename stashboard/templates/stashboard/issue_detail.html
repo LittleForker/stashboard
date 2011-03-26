@@ -5,42 +5,42 @@
 
 <nav id="breadcrumb">
   <ul>
-    <li><a href="/">Home</a></li>
-    <li><a href="/regions/{{ issue.service.region.slug }}">{{ issue.service.region }}</a></li>
     <li><a href="/regions/{{ issue.service.region.slug}}/services/{{ issue.service.slug }}">{{ issue.service }}</a></li>
     <li><a href="/regions/{{ issue.service.region.slug}}/services/{{ issue.service.slug }}/issues">Issues</a></li>
     <li>#{{issue.pk}}</li>
   </ul>
 </nav>
 
-<h1>Issue #{{ issue.pk }}</h1>
-<h2>{{ issue }}</h2>
+<div class="archive">
 
-<table id="issues">
-  <tbody>
-    {% if issue.closed %}
-    <tr>
-      <td>{{ issue.closed|date:"M j, Y" }}</td>
-      <td>
-        <strong>RESOLVED:</strong>
-        {{ issue.resolution}}
-      </td>
-    </tr>
-    {% endif %}
-    {% for update in updates %}
-    <tr>
-      <td>{{ update.created|date:"M j, Y" }}</td>
-      <td>
-        <strong>UPDATE:</strong>
-        {{ update.description}}
-      </td>
-    </tr>
-    {% endfor %}
-    <tr>
-      <td>{{ issue.opened|date:"M j, Y" }}</td>
-      <td>{{ issue.description }}</td>
-    </tr>
-  </tbody>
-</table>
+  <h1>Issue #{{ issue.pk }}</h1>
+  <h2>{{ issue }}</h2>
 
+  <table id="issues">
+    <tbody>
+      {% if issue.closed %}
+      <tr>
+        <td>{{ issue.closed|date:"M j, Y" }}</td>
+        <td>
+          <strong>RESOLVED:</strong>
+          {{ issue.resolution}}
+        </td>
+      </tr>
+      {% endif %}
+      {% for update in updates %}
+      <tr>
+        <td>{{ update.created|date:"M j, Y" }}</td>
+        <td>
+          <strong>UPDATE:</strong>
+          {{ update.description}}
+        </td>
+      </tr>
+      {% endfor %}
+      <tr>
+        <td>{{ issue.opened|date:"M j, Y" }}</td>
+        <td>{{ issue.description }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 {% endblock %}

@@ -4,7 +4,7 @@
   {% with rslug=region.slug %}
   {% for service in services %}
 
-    <li>
+    <li class="{{ service.status.color }}_highlight">
       <img src="{{ STATIC_URL }}images/icons/{{ service.status.image }}" alt="Status Image" />
       <a href="/regions/{{rslug}}/services/{{service.slug}}">{{ service.name }}</a>
       <ul>

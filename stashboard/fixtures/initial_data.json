@@ -15,7 +15,8 @@
             "slug": "up",
             "name": "Up",
             "description": "Up and running",
-            "image": "iconic/check_alt.png"
+            "image": "iconic/check_alt.png",
+            "color": "green"
         }
     },
     {
@@ -25,7 +26,8 @@
             "slug": "down",
             "name": "Down",
             "description": "Down",
-            "image": "iconic/x_alt.png"
+            "image": "iconic/x_alt.png",
+            "color": "red"
         }
     },
     {
@@ -35,7 +37,8 @@
             "slug": "intermittent",
             "name": "Intermittent",
             "description": "Intermittent problems",
-            "image": "iconic/plus_alt.png"
+            "image": "iconic/plus_alt.png",
+            "color": "orange"
         }
     },
     {
@@ -45,7 +48,8 @@
             "slug": "maintenance",
             "name": "Maintenance",
             "description": "Scheduled maintenance",
-            "image": "iconic/cog_alt.png"
+            "image": "iconic/cog_alt.png",
+            "color": "blue"
         }
     }
 ]

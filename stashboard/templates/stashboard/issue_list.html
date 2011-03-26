@@ -5,14 +5,14 @@
 
 <nav id="breadcrumb">
   <ul>
-    <li><a href="/">Home</a></li>
-    <li><a href="/regions/{{ service.region.slug }}">{{ service.region }}</a></li>
     <li><a href="/regions/{{ service.region.slug}}/services/{{ service.slug }}">{{ service }}</a></li>
     <li>Issues</li>
   </ul>
 </nav>
 
-<h1>{{ service }} Issues</h1>
+<div class="archive">
+
+  <h1>Issues</h1>
 
   {% if issues %}
   <table>
@@ -28,5 +28,7 @@
     {% endfor %}
   </table>
   {% endif %}
+
+</div>
 
 {% endblock %}

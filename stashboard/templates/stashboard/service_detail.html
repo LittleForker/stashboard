@@ -3,15 +3,7 @@
 {% block content_id %}service_detail{% endblock %}
 {% block content %}
 
-<nav id="breadcrumb">
-  <ul>
-    <li><a href="/">Home</a></li>
-    <li><a href="/regions/{{ service.region.slug }}">{{ service.region }}</a></li>
-    <li>{{service }}</li>
-  </ul>
-</nav>
-
-  <header>
+  <header class="{{ service.status.color }}_highlight">
     <h1>{{ service.name }}</h1>
     <img src="{{ STATIC_URL }}images/icons/{{ service.status.image }}" alt="Status Image" />
   </header>

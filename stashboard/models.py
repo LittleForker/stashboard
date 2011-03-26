@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 from django.conf import settings
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.template.defaultfilters import slugify
 
@@ -19,6 +20,16 @@ class Region(models.Model):
     def __unicode__(self):
         return unicode(self.name)
 
+COLORS = {
+    "black":  ["#000000", "#cbcbcb"],
+    "blue":   ["#2e52a4", "#a2caf0"],
+    "green":  ["#86c440", "#daf1b8"],
+    "orange": ["#f9a31c", "#fce1b5"],
+    "red":    ["#ee2a24", "#f1bcb7"],
+    }
+
+COLOR_CHOICES = [ (c, c.title()) for c in COLORS.iterkeys()]
+
 class Status(models.Model):
     """The status of a service
 
@@ -32,9 +43,17 @@ class Status(models.Model):
     description = models.TextField()
     name = models.CharField(max_length=100)
     image = models.CharField(max_length=100)
+    color = models.CharField(max_length=15, choices=COLOR_CHOICES)
 
     def __unicode__(self):
         return unicode(self.name)
+
+    def highlight_hex(self):
+        return COLORS[self.color][1]
+
+    def color_hex(self):
+        return COLORS[self.color][0]
+
 
 class Service(models.Model):
     """A service for Stashaboard to track.
@@ -51,6 +70,12 @@ class Service(models.Model):
     description = models.TextField()
     region = models.ForeignKey(Region)
     status = models.ForeignKey(Status)
+
+    feed_types = {
+        "Issues":"issues-feed",
+        "Announcements": "announcements-feed",
+        "All Activity": "service-feed",
+        }
 
     class Meta:
         unique_together = ("slug", "region")
@@ -81,9 +106,12 @@ class Service(models.Model):
 
     def feeds(self):
         fs = []
-        for f in ["All Activity", "Announcements", "Issues"]:
-            url = "/feeds/services/%s/%s" % (self.slug, slugify(f))
-            fs.append({"title": f,"url": url})
+        for k, v in self.feed_types.iteritems():
+            url = reverse(v, kwargs={
+                    "region": self.region.slug,
+                    "service": self.slug,
+                    })
+            fs.append({"title": k,"url": url})
         return fs
 
     def archives(self):

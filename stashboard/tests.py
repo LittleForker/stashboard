@@ -21,11 +21,14 @@ class StatusTest(django.test.TestCase):
 
     def test_creation(self):
         status = Status.objects.create(slug="downd", name="Down", image="down.png",
-                        description="The service is currently down")
+                        description="The service is currently down", color="green")
         self.assertEqual(status.slug, "downd")
         self.assertEqual(status.name, "Down")
         self.assertEqual(status.image, "down.png")
         self.assertEqual(status.description, "The service is currently down")
+        self.assertEqual(status.highlight_hex(), "#daf1b8")
+        self.assertEqual(status.color_hex(), "#86c440")
+        self.assertEqual(status.color, "green")
 
 class ServiceTest(django.test.TestCase):
 
